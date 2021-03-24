@@ -7,6 +7,7 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
+  final _controller = new TextEditingController();
   var _enteredMessage = '';
 
   void _sendMessage() {
@@ -14,6 +15,7 @@ class _NewMessageState extends State<NewMessage> {
     FirebaseFirestore.instance.collection('chat').add({
       'text': _enteredMessage,
     });
+    _controller.clear();
   }
 
   @override
@@ -25,6 +27,7 @@ class _NewMessageState extends State<NewMessage> {
         children: <Widget>[
           Expanded(
             child: TextField(
+              controller: _controller,
               decoration: InputDecoration(labelText: 'Send a message...'),
               onChanged: (value) {
                 setState(() {
